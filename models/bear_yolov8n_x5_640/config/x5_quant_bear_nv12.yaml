@@ -1,0 +1,30 @@
+model_parameters:
+  onnx_model: /home/demo/tianbot_ws/models/bear_yolov8n_x5_640/source/bear_best.onnx
+  march: bayes-e
+  output_model_file_prefix: bear_yolov8n_x5_640_nv12
+  working_dir: /home/demo/tianbot_ws/models/bear_yolov8n_x5_640/output
+  layer_out_dump: false
+input_parameters:
+  input_name: images
+  input_type_train: rgb
+  input_layout_train: NCHW
+  input_shape: 1x3x640x640
+  input_batch: 1
+  norm_type: data_scale
+  scale_value: '0.003921568627451'
+  input_type_rt: nv12
+  input_space_and_range: regular
+calibration_parameters:
+  cal_data_dir: /home/demo/tianbot_ws/models/bear_yolov8n_x5_640/calibration/calibration_bear_rgb_uint8_nchw
+  cal_data_type: uint8
+  preprocess_on: false
+  calibration_type: default
+  per_channel: false
+compiler_parameters:
+  compile_mode: latency
+  debug: true
+  core_num: 1
+  optimize_level: O3
+  jobs: 8
+  input_source:
+    images: pyramid

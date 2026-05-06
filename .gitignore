@@ -1,53 +1,33 @@
-# === Archive .gitignore for tianbot_ws ===
-# Excludes SDK installers, venvs, calibration data, reference repos
-# Keeps: scripts, configs, quantization outputs, DDK runtime
+# === tianbot_ws .gitignore ===
+# Quantization workspace: keeps scripts, configs, manifests, quant outputs
+# Excludes: SDK installers, venvs, calibration data, caches
 
-# 1. Python virtual environments (can be recreated)
+# Python virtual environment
 .venv_oe_py310/
-.venv_oe_py310_v123/
-.venv_x5/
 
-# 2. Calibration data (regenerable from images via prepare_calibration_bins.py)
-calibration_bear_rgb_uint8_nchw/
-calibration_rgb_uint8_nchw/
-bear_calibration_images/
-bear_calibration_images.tar.gz
+# Open Explorer SDK (296 MB) and DDK runtime
+open_explorer_x5/
+.horizon/
 
-# 3. Old SDK versions (keep only v1.2.8)
-open_explorer_x5_v123/
-v123home/
-horizon_x5_open_explorer_v1.2.3-py310_20240517.tar.gz
-.venv_oe_py310_v123/
-
-# 4. Reference repos (not project code)
-rdk_model_zoo-main/
-
-# 5. Checker intermediates (regenerable)
+# Checker intermediates (regenerable)
 .hb_check/
 
-# 6. Empty/unused directories
-x5_quant_output_v123/
+# Calibration data inside models/ (regenerable, heavyweight)
+models/*/calibration/
 
-# 7. Garbage files from malformed pip commands
-=*
+# hb_mapper intermediate ONNX inside output/ (regenerable)
+models/*/output/*.onnx
 
-# 8. Python cache
+# Agent/IDE caches
+.claude/
+.codex/
+.vscode-server/
+
+# Python cache
 __pycache__/
 *.pyc
 *.pyo
 .cache/
 
-# 9. Open Explorer SDK tarball (2.2 GB, can re-download)
-horizon_x5_open_explorer_v1.2.8-py310_20240926.tar.gz
-
-# 10. Agent/IDE caches (not project data)
-.claude/
-.codex/
-.vscode-server/
-
-# 11. Codex agent data (not project code)
-.codex/
-
-# 12. Open Explorer SDK (296 MB, .whl files exceed GitHub 100MB limit)
-# DDK headers/libs in .horizon/ddk/ are kept for reference
-open_explorer_x5/
+# Garbage files from malformed pip commands
+=*
